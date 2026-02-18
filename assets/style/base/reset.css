@@ -1,0 +1,93 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+html {
+    color-scheme: rgb(227, 7, 43);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html {
+        scroll-behavior: smooth;
+        interpolate-size: allow-keywords;
+    }
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 1em;
+    text-wrap: balance;
+    /* background-color: aqua; */
+}
+
+p {
+    max-width: 65ch;
+    margin: 0 0 1em;
+    text-wrap: pretty;
+}
+
+img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+
+}
+
+
+ul, ol {
+    padding: 0;
+    list-style: none;
+}
+
+a[class] {
+    text-decoration: none;
+    color: inherit;
+}
+
+input, button, textarea, select {
+    max-width: 100%;
+    font: inherit;
+}
+
+  
+ 
+    .book-list ul{
+        /* display: grid; */
+        
+        gap: 1em;
+        
+    }
+    .book-list li{
+        display: grid;
+        justify-items: center;
+        text-align: center;
+        padding: 1em;
+        border: 2px solid rgb(17, 30, 170);
+        background-color: rgb(183, 28, 71);
+        
+    }
+    .book-list .actions{
+        place-self: end;
+    }
+/* .book-list img{
+    display: flex;
+    justify-content: center;
+    } */
+    
+    .book-list li > *{
+        
+        margin: 0;
+    }
+    .book-list li img{
+        transition: 600ms;
+    } 
+    
+    
+    .book-list li img:hover{
+        /* rotate: -10eg; */
+        rotate: -10deg;
+    }
+    
+    img{
+      
+        width: 150px;
+        /* margin: 0% auto; */
+    }
