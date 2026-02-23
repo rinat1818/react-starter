@@ -7,9 +7,12 @@ import { storageService } from './async-storage.service.js'
 const CAR_KEY = 'bookdb'
 
 
-_createCars() 
+_createCars()
 // export const booksServis = {query}
-export const booksServis = {query}
+export const booksServis = {
+    query,
+    remove
+}
 function query(filterBy = {}) {
     return storageService.query(CAR_KEY)
         .then(cars => {
@@ -26,51 +29,55 @@ function query(filterBy = {}) {
         })
 }
 
-function _createCars() {
-    let books = utilService.loadFromStorage(CAR_KEY)
-    if (!books|| !books.length) {
-
-        books =[{
-
-    id: "101",
-        title: "harry poter",
-            description: "placerat nisi sodales suscipit tellus",
-                thumbnail: "assets/img/harry.png",
-                    listPrice: {
-        amount: 109,
-            currencyCode: "EUR",
-                isOnSale: false
-    }
-
-},
-{
-
-    id: "102",
-        title: "keeper of the lost sitics",
-            description: "placerat nisi sodales suscipit tellus",
-                thumbnail: "assets/img/keeper.png",
-                    listPrice: {
-        amount: 109,
-            currencyCode: "EUR",
-                isOnSale: false
-    }
-
-},
-{
-
-    id: "103",
-        title: "hunger game",
-            description: "placerat nisi sodales suscipit tellus",
-                thumbnail: "assets/img/hunger game.png",
-                    listPrice: {
-        amount: 109,
-            currencyCode: "EUR",
-                isOnSale: false
-    }
-
+function remove(bookId) {
+    return storageService.remove(CAR_KEY, bookId)
 }
 
-]
+function _createCars() {
+    let books = utilService.loadFromStorage(CAR_KEY)
+    if (!books || !books.length) {
+
+        books = [{
+
+            id: "101",
+            title: "harry poter",
+            description: "placerat nisi sodales suscipit tellus",
+            thumbnail: "assets/img/harry.png",
+            listPrice: {
+                amount: 109,
+                currencyCode: "EUR",
+                isOnSale: false
+            }
+
+        },
+        {
+
+            id: "102",
+            title: "keeper of the lost sitics",
+            description: "placerat nisi sodales suscipit tellus",
+            thumbnail: "assets/img/keeper.png",
+            listPrice: {
+                amount: 109,
+                currencyCode: "EUR",
+                isOnSale: false
+            }
+
+        },
+        {
+
+            id: "103",
+            title: "hunger game",
+            description: "placerat nisi sodales suscipit tellus",
+            thumbnail: "assets/img/hunger game.png",
+            listPrice: {
+                amount: 109,
+                currencyCode: "EUR",
+                isOnSale: false
+            }
+
+        }
+
+        ]
         // books= []
         // const vendors = ['audu', 'fiak', 'subali', 'mitsu']
         // for (let i = 0; i < 6; i++) {

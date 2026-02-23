@@ -53,19 +53,28 @@ input, button, textarea, select {
         /* display: grid; */
         
         gap: 1em;
+        background-color: aliceblue;
         
     }
+    .book-indx{
+        background-color: aqua;
+    }
+    
+    
     .book-list li{
         display: grid;
         justify-items: center;
         text-align: center;
+
         padding: 1em;
         border: 2px solid rgb(17, 30, 170);
         background-color: rgb(183, 28, 71);
         
     }
     .book-list .actions{
+        display: flex;
         place-self: end;
+        gap: .5em;
     }
 /* .book-list img{
     display: flex;
@@ -89,5 +98,12 @@ input, button, textarea, select {
     img{
       
         width: 150px;
+        margin: auto;
         /* margin: 0% auto; */
     }
+
+    .book-filter{
+        background-color: aqua;
+    }
+
+
