@@ -11,7 +11,8 @@ _createCars()
 // export const booksServis = {query}
 export const booksServis = {
     query,
-    remove
+    remove,
+    getDefaultFilter
 }
 function query(filterBy = {}) {
     return storageService.query(CAR_KEY)
@@ -31,6 +32,9 @@ function query(filterBy = {}) {
 
 function remove(bookId) {
     return storageService.remove(CAR_KEY, bookId)
+}
+function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
+    return { txt: filterBy.txt, minSpeed: filterBy.minSpeed }
 }
 
 function _createCars() {

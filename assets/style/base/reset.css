@@ -103,7 +103,16 @@ input, button, textarea, select {
     }
 
     .book-filter{
+        display: flex;
+        align-items: center;
+
         background-color: aqua;
+        padding: 1em;
+       margin-block-start: 1em; ;
+    }
+    .book-filter p{
+        margin:0;
+
     }
 
 
