@@ -70,6 +70,11 @@ input, button, textarea, select {
         border: 2px solid rgb(17, 30, 170);
         background-color: rgb(183, 28, 71);
         
+
+    }
+    .book-list{
+        margin-top: 3vh;
+         background-color: rgb(183, 28, 71);
     }
     .book-list .actions{
         display: flex;
@@ -114,5 +119,25 @@ input, button, textarea, select {
         margin:0;
 
     }
+    .book-list img{
+        height: 30vh;
+    }
+    .book-list nav{
+     display: flex;   
+     align-items: center;
+/* margin-left: .2em;
+margin-right: .2em; */
+a:last-child{
+    margin-inline-start: auto;
+}
+}
 
+
+.book-list button{
+    margin: auto .2em;
+    margin-bottom: .2em;
+    background-color:var(--clr1);
+    border-radius: 5px;
+  border: 2px solid rgb(226, 111, 167);
+}
 

@@ -18,6 +18,9 @@
     display: flex;
     gap: 15px;
 }
+a:not(:last-child){
+margin-inline-end:.5em ;
+}
 
 
 a.active {

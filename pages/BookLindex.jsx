@@ -13,7 +13,7 @@ import { BookDetails } from "./BookDetails.jsx"
 export function BookIndex() {
 
     const [books, setBooks] = useState(null)
-    const [selectedbook, setSelectedbook] = useState(null)
+    // const [selectedbook, setSelectedbook] = useState(null)
     const [filterBy, setFilterBy] = useState(booksServis.getDefaultFilter())
 
 
@@ -39,7 +39,7 @@ export function BookIndex() {
         {/* <img src="./assets/img/loader.svg" alt="" /> */}
     </div>
     return <div className="book-indx">
-        {!selectedbook &&
+       
             <React.Fragment>
 
                 <BookFilter
@@ -47,15 +47,12 @@ export function BookIndex() {
                     setFilterBy={setFilterBy} />
                 <BookList
                     books={books}
-                    onSelectBook={setSelectedbook}
+                  
                     onRemoveBook={removeBooks} />
 
-            </React.Fragment>}
+            </React.Fragment>
 
-        {selectedbook &&
-            <BookDetails
-                book={selectedbook}
-                onClearSelectBook={() => setSelectedbook(null)} />}
+       
     </div>
 
 }

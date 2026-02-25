@@ -11,25 +11,47 @@ _createCars()
 // export const booksServis = {query}
 export const booksServis = {
     query,
+    get,
     remove,
-    getDefaultFilter
+    save,
+    getEmptyCar,
+    getDefaultFilter,
+    getSpeedStats,
+    getVendorStats,
+    fetchBooks
 }
+// function query(filterBy = {}) {
+//     return storageService.query(CAR_KEY)
+//         .then(cars => {
+//             if (filterBy.txt) {
+//                 const regExp = new RegExp(filterBy.txt, 'i')
+//                 cars = cars.filter(car => regExp.test(car.title))
+//             }
+
+//             if (filterBy.minSpeed) {
+//                 cars = cars.filter(car => car.maxSpeed >= filterBy.minSpeed)
+//             }
+
+//             return cars
+//         })
+// }
 function query(filterBy = {}) {
-    return storageService.query(CAR_KEY)
-        .then(cars => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                cars = cars.filter(car => regExp.test(car.vendor))
-            }
+    return storageService.query(CAR_KEY).then(books => {
+        if (filterBy.txt) {
+            const regExp = new RegExp(filterBy.txt, 'i')
+            books = books.filter(book => regExp.test(book.title))
+        }
+        return books
+    })
+}
 
-            if (filterBy.minSpeed) {
-                cars = cars.filter(car => car.maxSpeed >= filterBy.minSpeed)
-            }
-
-            return cars
+function get(carId) {
+    return storageService.get(CAR_KEY, carId)
+        .then(car => {
+            car = _setNextPrevCarId(car)
+            return car
         })
 }
-
 function remove(bookId) {
     return storageService.remove(CAR_KEY, bookId)
 }
@@ -39,6 +61,8 @@ function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
 
 function _createCars() {
     let books = utilService.loadFromStorage(CAR_KEY)
+    console.log(books);
+
     if (!books || !books.length) {
 
         books = [{
@@ -91,3 +115,121 @@ function _createCars() {
         utilService.saveToStorage(CAR_KEY, books)
     }
 }
+function _setNextPrevCarId(car) {
+    return storageService.query(CAR_KEY).then((cars) => {
+        const carIdx = cars.findIndex((currCar) => currCar.id === car.id)
+        const nextCar = cars[carIdx + 1] ? cars[carIdx + 1] : cars[0]
+        const prevCar = cars[carIdx - 1] ? cars[carIdx - 1] : cars[cars.length - 1]
+        car.nextCarId = nextCar.id
+        car.prevCarId = prevCar.id
+        return car
+    })
+}
+function getEmptyCar(vendor = '', maxSpeed = '') {
+    return { vendor, maxSpeed }
+}
+
+function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
+    return { txt: filterBy.txt, minSpeed: filterBy.minSpeed }
+}
+
+function getSpeedStats() {
+    return storageService.query(CAR_KEY)
+        .then(cars => {
+            const carCountBySpeedMap = _getCarCountBySpeedMap(cars)
+            const data = Object.keys(carCountBySpeedMap).map(speedName => ({ title: speedName, value: carCountBySpeedMap[speedName] }))
+            return data
+        })
+}
+
+function getVendorStats() {
+    return storageService.query(CAR_KEY)
+        .then(cars => {
+            const carCountByVendorMap = _getCarCountByVendorMap(cars)
+            const data = Object.keys(carCountByVendorMap)
+                .map(vendor =>
+                ({
+                    title: vendor,
+                    value: Math.round((carCountByVendorMap[vendor] / cars.length) * 100)
+                }))
+            return data
+        })
+}
+
+// function _createCars() {
+//     let cars = utilService.loadFromStorage(CAR_KEY)
+//     if (!cars || !cars.length) {
+//         cars = []
+//         const vendors = ['audu', 'fiak', 'subali', 'mitsu']
+//         for (let i = 0; i < 6; i++) {
+//             const vendor = vendors[utilService.getRandomIntInclusive(0, vendors.length - 1)]
+//             cars.push(_createCar(vendor, utilService.getRandomIntInclusive(80, 300)))
+//         }
+//         utilService.saveToStorage(CAR_KEY, cars)
+//     }
+// }
+
+function _createCar(vendor, maxSpeed = 250) {
+    const car = getEmptyCar(vendor, maxSpeed)
+    car.id = utilService.makeId()
+    return car
+}
+
+function _setNextPrevCarId(car) {
+    return storageService.query(CAR_KEY).then((cars) => {
+        const carIdx = cars.findIndex((currCar) => currCar.id === car.id)
+        const nextCar = cars[carIdx + 1] ? cars[carIdx + 1] : cars[0]
+        const prevCar = cars[carIdx - 1] ? cars[carIdx - 1] : cars[cars.length - 1]
+        car.nextCarId = nextCar.id
+        car.prevCarId = prevCar.id
+        return car
+    })
+}
+
+function _getCarCountBySpeedMap(cars) {
+    const carCountBySpeedMap = cars.reduce((map, car) => {
+        if (car.maxSpeed < 120) map.slow++
+        else if (car.maxSpeed < 200) map.normal++
+        else map.fast++
+        return map
+    }, { slow: 0, normal: 0, fast: 0 })
+    return carCountBySpeedMap
+}
+
+function _getCarCountByVendorMap(cars) {
+    const carCountByVendorMap = cars.reduce((map, car) => {
+        if (!map[car.vendor]) map[car.vendor] = 0
+        map[car.vendor]++
+        return map
+    }, {})
+    return carCountByVendorMap
+}
+function save(car) {
+    if (car.id) {
+        return storageService.put(CAR_KEY, car)
+    } else {
+        // book.thubnail=""
+        return storageService.post(CAR_KEY, car)
+    }
+}
+
+function fetchBooks(term) {
+    return axios.get(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${term}`)
+        .then(books => books.items)
+        .catch(err => {
+            console.log(err)
+            throw 'Oops... had a problem'
+        })
+        .finally(() => console.log('After service'))
+}
+
+
+// function ask() {
+// 	return axios.get('https://yesno.wtf/api')
+//         .then(res => res.data)
+//         .catch(err => {
+//             console.log(err)
+//             throw 'Oops... had a problem'
+//         })
+//         .finally(() => console.log('After service'))
+// }

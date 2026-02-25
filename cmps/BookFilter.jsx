@@ -21,7 +21,7 @@ export function BookFilter({filterBy}) {
         value={filterByToEdit.txt}
         onInput={ev => handleChange(ev)}
             type="text"
-            placeholder="vendor" />
+            placeholder="title" />
         {/* <input
         value={filterByToEdit.minSpeed}
         onInput={ev => handleChange(ev)}
