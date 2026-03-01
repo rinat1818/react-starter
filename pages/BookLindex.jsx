@@ -4,6 +4,7 @@ const { useState, useEffect } = React
 import { BookFilter } from "../cmps/BookFilter.jsx"
 import { BookList } from "../cmps/BookList.jsx"
 import { booksServis } from "../services/book.service.js"
+import { BookAdd } from "./BookAdd.jsx"
 import { BookDetails } from "./BookDetails.jsx"
 // import { BookFilter } from "../cmps/BookFilter.jsx"
 
@@ -39,20 +40,21 @@ export function BookIndex() {
         {/* <img src="./assets/img/loader.svg" alt="" /> */}
     </div>
     return <div className="book-indx">
-       
-            <React.Fragment>
 
-                <BookFilter
-                    filterBy={filterBy}
-                    setFilterBy={setFilterBy} />
-                <BookList
-                    books={books}
-                  
-                    onRemoveBook={removeBooks} />
+        {/* <React.Fragment> */}
 
-            </React.Fragment>
+            <BookFilter
+                filterBy={filterBy}
+                setFilterBy={setFilterBy} />
+            <BookAdd />
+            <BookList
+                books={books}
 
-       
+                onRemoveBook={removeBooks} />
+
+        {/* </React.Fragment> */}
+
+
     </div>
 
 }

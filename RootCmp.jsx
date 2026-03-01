@@ -10,6 +10,7 @@ import { AboutUs } from "./pages/About.jsx"
 import { BookIndex } from "./pages/BookLindex.jsx"
 import { BookDetails } from "./pages/BookDetails.jsx"
 import { BookEdit } from "./pages/BookEdit.jsx"
+import { BookAdd } from "./pages/BookAdd.jsx"
 // import { BookIndex } from "./pages/BookLindex.jsx"
 // import {  } from "./pages/BookLindex.jsx"
 export function RootCmp() {
@@ -28,6 +29,7 @@ export function RootCmp() {
                         <Route path="/about" element ={<AboutUs />}/>
                         <Route path="/book" element ={<BookIndex />}/>
                         <Route path="/book/edit" element ={<BookEdit/>}/>
+                        <Route path="/book/add" element ={<BookAdd/>}/>
                         <Route path="/book/:id" element ={<BookDetails/>}/>
 
                     </Routes>

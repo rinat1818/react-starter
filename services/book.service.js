@@ -214,8 +214,14 @@ function save(car) {
 }
 
 function fetchBooks(term) {
+    console.log(term);
+    
     return axios.get(`https://www.googleapis.com/books/v1/volumes?printType=books&q=${term}`)
-        .then(books => books.items)
+        .then(books => {
+            console.log(books);
+            
+            return books.data.items
+        })
         .catch(err => {
             console.log(err)
             throw 'Oops... had a problem'
