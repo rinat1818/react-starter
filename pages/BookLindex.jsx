@@ -16,7 +16,7 @@ export function BookIndex() {
     const [books, setBooks] = useState(null)
     // const [selectedbook, setSelectedbook] = useState(null)
     const [filterBy, setFilterBy] = useState(booksServis.getDefaultFilter())
-
+    var test = 0
 
     useEffect(() => {
         loadBooks()
@@ -41,18 +41,18 @@ export function BookIndex() {
     </div>
     return <div className="book-indx">
 
-        {/* <React.Fragment> */}
+        {/* { <React.Fragment> } */}
 
-            <BookFilter
-                filterBy={filterBy}
-                setFilterBy={setFilterBy} />
-            <BookAdd />
-            <BookList
-                books={books}
+        { <BookFilter
+            filterBy={filterBy}
+            setFilterBy={setFilterBy} /> }
+        <BookAdd />
+        <BookList
+            books={books}
 
-                onRemoveBook={removeBooks} />
+            onRemoveBook={removeBooks} />
 
-        {/* </React.Fragment> */}
+        {/* { </React.Fragment> } */}
 
 
     </div>
