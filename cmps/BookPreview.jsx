@@ -5,9 +5,17 @@ export function BookPreview({book}){
 
     <h2>{book.id}</h2>
     <p>{book.title}</p>
-    {/* <p>{book.description}</p> */}
     <img src={book.thumbnail} alt="" />
       <p>{book.listPrice.amount}</p>
+    
+    {/* <p>{book.description}</p> */}
+</div>
+
+    }
+
+
+
+
     {/* <img src={`assets/img/${book.title}.png`} alt="" /> */}
     {/* <p>{book.listPrice.amount}</p> */}
     {/* <p>{book.listPrice.amount}</p> */}
@@ -18,6 +26,3 @@ export function BookPreview({book}){
        
          className="btn-remove">x</button>
     </div> */}
-</div>
-
-    }

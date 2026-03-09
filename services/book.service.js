@@ -18,7 +18,8 @@ export const booksServis = {
     getDefaultFilter,
     getSpeedStats,
     getVendorStats,
-    fetchBooks
+    fetchBooks,
+    getEmptyBook
 }
 // function query(filterBy = {}) {
 //     return storageService.query(CAR_KEY)
@@ -128,7 +129,17 @@ function _setNextPrevCarId(car) {
 function getEmptyCar(vendor = '', maxSpeed = '') {
     return { vendor, maxSpeed }
 }
-
+function getEmptyBook(title = '', description = '', amount = 0) {
+  return {
+    title,
+    description,
+    listPrice: {
+      amount,
+      currencyCode: 'EUR',
+      isOnSale: false
+    }
+  }
+}
 function getDefaultFilter(filterBy = { txt: '', minSpeed: 0 }) {
     return { txt: filterBy.txt, minSpeed: filterBy.minSpeed }
 }

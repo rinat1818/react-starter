@@ -3,10 +3,12 @@ import { booksServis } from "../services/book.service.js"
 
 
 export function BookEdit() {
-    const [book, setBook] = useState(booksServis.getEmptyCar())
+    const [book, setBook] = useState(booksServis.getEmptyBook())
 
     function handleChange({ target }) {
         const { type, name, value } = target
+        console.log(target);
+        
         if(name === "amount") {
             setBook(prev => ({ ...prev, listPrice:{amount:value,currencyCode:"EUR",isOnSale:false}}))
         }
